@@ -1,0 +1,172 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Home Page</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Home Page</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-success"><i class="far fa-calendar"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text text-sm">Current Season</span>
+            <h3 class="info-box-number">{{ season }}</h3>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-info"><i class="fas fa-running"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text text-sm">Upcoming Games</span>
+            <h3 class="info-box-number">15</h3>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-warning"><i class="fas fa-chart-line"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text text-sm">Total Games (this season)</span>
+            <h3 class="info-box-number">35</h3>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box shadow-sm">
+          <span class="info-box-icon bg-danger"><i class="fas fa-chart-line"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text text-sm">Avg grade</span>
+            <h3 class="info-box-number">69</h3>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- My Latest Games -->
+      <div class="col-lg-7">
+        <div class="card card-outline card-success">
+          <div class="card-header">
+            <h3 class="card-title">My latest games</h3>
+          </div>
+          <div class="card-body">
+            <table id="my-last-games" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Home</th>
+                  <th>Away</th>
+                  <th>Competition</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for game in game_list %}
+                <tr>
+                  <td>{{ game.game_id }}</td>
+                  <td>{{ game.date_time|date:'Y/m/d H:i' }}</td>
+                  <td><img class="flag mr-2" src="{{ game.home_team.club.badge.url }}">{{ game.home_team }}</td>
+                  <td><img class="flag mr-2" src="{{ game.away_team.club.badge.url }}">{{ game.away_team }}</td>
+                  <td><span class="badge badge-info">{{ game.competition.name }}</span></td>
+                  <td><a href="#" class="btn btn-block btn-outline-dark btn-xs align-middle">More</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>ID</th>
+                  <th>Home</th>
+                  <th>Away</th>
+                  <th>Date</th>
+                  <th>Competition</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <!-- Last results -->
+      <div class="col-lg-5">
+        <div class="card card-outline card-danger">
+          <div class="card-header">
+            <h3 class="card-title">Last results</h3>
+          </div>
+
+          <div class="card-body">
+            <table id="last-results" class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Home</th>
+                  <th>Result</th>
+                  <th>Away</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for game in game_list %}
+                <tr>
+                  <td><small>{{ game.game_id }}</small></td>
+                  <td><small>{{ game.date_time|date:'Y/m/d H:i' }}</small></td>
+                  <td><img class="flag mr-2" src="{{ game.home_team.club.badge.url }}">{{ game.home_team }}</td>
+                  <td>33:34</td>
+                  <td><img class="flag mr-2" src="{{ game.away_team.club.badge.url }}"><strong>{{ game.away_team }}</strong></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Home</th>
+                  <th>Result</th>
+                  <th>Away</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
+{% endblock %}
